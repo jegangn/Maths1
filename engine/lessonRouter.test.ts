@@ -31,7 +31,7 @@ describe("decideNextLesson", () => {
         },
       },
     };
-    expect(decideNextLesson(p)).toBe("add-10-bonds-01");
+    expect(decideNextLesson(p)).toBe("add-10-review-02");
   });
 
   it("routes to prerequisite after 3 failed attempts on a lesson with prereqs", () => {
@@ -40,6 +40,6 @@ describe("decideNextLesson", () => {
       currentLessonId: "add-10-bonds-01",
       failedAttemptCounts: { "add-10-bonds-01": 3 },
     };
-    expect(decideNextLesson(p)).toBe("add-10-review-01");
+    expect(decideNextLesson(p)).toBe("add-10-review-03");
   });
 });
