@@ -1,5 +1,4 @@
 "use client";
-import { motion } from "framer-motion";
 import { play } from "@/lib/sound";
 
 interface Props {
@@ -19,14 +18,7 @@ function Frame({ filled, prefix }: { filled: number; prefix: string }) {
           className="w-14 h-14 rounded-xl flex items-center justify-center bg-cream"
           style={{ outline: "2px solid var(--ink)" }}
         >
-          {on && (
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 400, damping: 22 }}
-              className="w-9 h-9 rounded-full bg-orange"
-            />
-          )}
+          {on && <div className="w-9 h-9 rounded-full bg-orange" />}
         </div>
       ))}
     </div>

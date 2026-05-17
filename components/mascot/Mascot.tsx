@@ -34,7 +34,11 @@ export function Mascot({ emotion = "idle" }: Props) {
             ? { rotate: [-5, 5, -5, 5, 0] }
             : undefined
       }
-      transition={{ type: "spring", stiffness: 300, damping: 12 }}
+      transition={
+        emotion === "happy" || emotion === "celebrating"
+          ? { type: "tween", duration: 0.45, ease: "easeInOut" }
+          : { type: "spring", stiffness: 300, damping: 12 }
+      }
     >
       <img
         data-testid="mascot-img"

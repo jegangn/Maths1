@@ -152,10 +152,21 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
     const p = currentProblem;
     switch (kind) {
       case "tens-frame":
-        return <TensFrame filled={p.a} mode="fill" onChange={() => {}} />;
+        return (
+          <TensFrame
+            filled={p.a}
+            secondFilled={p.b}
+            mode="fill"
+            onChange={() => {}}
+          />
+        );
       case "double-tens-frame":
         return (
-          <DoubleTensFrame leftFilled={p.a} rightFilled={0} onAdd={() => {}} />
+          <DoubleTensFrame
+            leftFilled={p.a}
+            rightFilled={p.b}
+            onAdd={() => {}}
+          />
         );
       case "place-value-blocks":
         return (
