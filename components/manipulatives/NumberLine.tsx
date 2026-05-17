@@ -12,9 +12,10 @@ interface Props {
 export function NumberLine({ max, frogAt, step = 1, onHop }: Props) {
   const ticks = Array.from({ length: max + 1 }, (_, i) => i);
   const tickPercent = (i: number) => (i / max) * 100;
+  const labelClass = max <= 10 ? "text-xl" : "text-base";
   return (
-    <div className="flex flex-col items-center gap-6 w-full max-w-2xl">
-      <div className="relative w-full h-24">
+    <div className="flex flex-col items-center gap-6 w-full">
+      <div className="relative w-full min-h-32 h-32">
         <div className="absolute top-1/2 left-0 right-0 h-1 bg-ink/70 -translate-y-1/2" />
         {ticks.map((t) => (
           <div
@@ -24,7 +25,7 @@ export function NumberLine({ max, frogAt, step = 1, onHop }: Props) {
             style={{ left: `${tickPercent(t)}%` }}
           >
             <div className="w-1 h-4 bg-ink/70" />
-            <div className="text-sm mt-1">{t}</div>
+            <div className={`${labelClass} mt-1`}>{t}</div>
           </div>
         ))}
         <motion.div

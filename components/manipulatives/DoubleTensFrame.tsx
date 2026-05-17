@@ -7,7 +7,15 @@ interface Props {
   onAdd: (next: { left: number; right: number }) => void;
 }
 
-function Frame({ filled, prefix }: { filled: number; prefix: string }) {
+function Frame({
+  filled,
+  prefix,
+  colour = "orange",
+}: {
+  filled: number;
+  prefix: string;
+  colour?: "orange" | "blue";
+}) {
   const cells = Array.from({ length: 10 }, (_, i) => i < filled);
   return (
     <div className="grid grid-cols-5 gap-2 p-3 bg-white rounded-2xl border-4 border-ink/80">
@@ -18,7 +26,11 @@ function Frame({ filled, prefix }: { filled: number; prefix: string }) {
           className="w-14 h-14 rounded-xl flex items-center justify-center bg-cream"
           style={{ outline: "2px solid var(--ink)" }}
         >
-          {on && <div className="w-9 h-9 rounded-full bg-orange" />}
+          {on && (
+            <div
+              className={`w-9 h-9 rounded-full ${colour === "blue" ? "bg-blue" : "bg-orange"}`}
+            />
+          )}
         </div>
       ))}
     </div>
@@ -34,8 +46,8 @@ export function DoubleTensFrame({ leftFilled, rightFilled, onAdd }: Props) {
   return (
     <div className="flex flex-col items-center gap-6">
       <div className="flex gap-6">
-        <Frame filled={leftFilled} prefix="L" />
-        <Frame filled={rightFilled} prefix="R" />
+        <Frame filled={leftFilled} prefix="L" colour="orange" />
+        <Frame filled={rightFilled} prefix="R" colour="blue" />
       </div>
       <button
         data-testid="dtf-tray-dot"
