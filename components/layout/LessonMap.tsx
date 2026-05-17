@@ -3,10 +3,19 @@ import Link from "next/link";
 import { allLessons } from "@/lessons";
 import { useAppStore } from "@/engine/store";
 import { Mascot } from "@/components/mascot/Mascot";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export function LessonMap() {
+  const router = useRouter();
   const { progress, hydrate } = useAppStore();
+  const [tapCount, setTapCount] = useState(0);
+  const handleVersionTap = () => {
+    const next = tapCount + 1;
+    setTapCount(next);
+    if (next >= 5) router.push("/parent");
+    setTimeout(() => setTapCount(0), 3000);
+  };
   useEffect(() => {
     hydrate();
   }, [hydrate]);
@@ -41,9 +50,12 @@ export function LessonMap() {
           );
         })}
       </div>
-      <div className="absolute bottom-4 right-4 text-xs text-ink/40">
+      <button
+        onClick={handleVersionTap}
+        className="absolute bottom-4 right-4 text-xs text-ink/40"
+      >
         v1.0.0
-      </div>
+      </button>
     </div>
   );
 }
