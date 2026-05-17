@@ -27,6 +27,8 @@ import { ProgressBar } from "./ProgressBar";
 import { CorrectBurst, GentleShake } from "@/components/feedback/Feedback";
 import { play } from "@/lib/sound";
 
+const LS_KEY = "mathTutor.lessonState.v1";
+
 interface PhaseList {
   problems: Problem[];
   phase: PhaseKind;
@@ -74,11 +76,61 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
     ];
   }, [lesson, lessonId]);
 
+  // Restore state from localStorage on mount (client-side only)
+  useEffect(() => {
+    if (!lesson) return;
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw);
+      if (saved.lessonId !== lessonId) return;
+      // Restore valid saved state
+      if (
+        typeof saved.phaseIndex === "number" &&
+        typeof saved.problemIndex === "number"
+      ) {
+        setPhaseIndex(saved.phaseIndex);
+        setProblemIndex(saved.problemIndex);
+        // Derive phase name from index once phases are available
+        // phases may be [] here if lesson is undefined, but we guard above
+      }
+    } catch {
+      // ignore corrupt data
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lessonId]);
+
+  // Keep phase in sync with phaseIndex after restoration
+  useEffect(() => {
+    if (phases.length > 0 && phases[phaseIndex]) {
+      setPhase(phases[phaseIndex].phase);
+    }
+  }, [phases, phaseIndex]);
+
   if (!lesson) return <div className="p-8">Lesson not found.</div>;
 
   const currentList = phases[phaseIndex];
   const currentProblem = currentList?.problems[problemIndex];
   if (!currentProblem) return <div className="p-8">Loading…</div>;
+
+  const saveState = (pIdx: number, prIdx: number) => {
+    try {
+      localStorage.setItem(
+        LS_KEY,
+        JSON.stringify({ lessonId, phaseIndex: pIdx, problemIndex: prIdx }),
+      );
+    } catch {
+      // ignore
+    }
+  };
+
+  const clearState = () => {
+    try {
+      localStorage.removeItem(LS_KEY);
+    } catch {
+      // ignore
+    }
+  };
 
   const onCorrect = () => {
     play("correct");
@@ -101,13 +153,19 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
       const nextIndex = problemIndex + 1;
       if (nextIndex >= currentList.problems.length) {
         const nextPhase = phaseIndex + 1;
-        if (nextPhase >= phases.length) finishLesson(newOutcome);
-        else {
+        if (nextPhase >= phases.length) {
+          clearState();
+          finishLesson(newOutcome);
+        } else {
           setPhaseIndex(nextPhase);
           setProblemIndex(0);
           setPhase(phases[nextPhase].phase);
+          saveState(nextPhase, 0);
         }
-      } else setProblemIndex(nextIndex);
+      } else {
+        setProblemIndex(nextIndex);
+        saveState(phaseIndex, nextIndex);
+      }
     }, 700);
   };
 
@@ -150,64 +208,86 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
 
   const renderManipulative = (kind: ManipulativeKind) => {
     const p = currentProblem;
-    switch (kind) {
-      case "tens-frame":
-        return (
-          <TensFrame
-            filled={p.a}
-            secondFilled={p.b}
-            mode="fill"
-            onChange={() => {}}
-          />
-        );
-      case "double-tens-frame":
-        return (
-          <DoubleTensFrame
-            leftFilled={p.a}
-            rightFilled={p.b}
-            onAdd={() => {}}
-          />
-        );
-      case "place-value-blocks":
-        return (
-          <PlaceValueBlocks
-            tens={Math.floor(p.a / 10)}
-            ones={p.a % 10}
-            onChange={() => {}}
-          />
-        );
-      case "equal-groups":
-        return (
-          <EqualGroups
-            plates={p.a}
-            perPlate={p.b}
-            countedPlates={0}
-            onCount={() => {}}
-          />
-        );
-      case "array-grid":
-        return (
-          <ArrayGrid
-            rows={p.a}
-            cols={p.b}
-            rotated={false}
-            onRotate={() => {}}
-          />
-        );
-      case "number-line":
-        return <NumberLine max={20} frogAt={p.a} onHop={() => {}} />;
-      case "number-bond":
-        return (
-          <NumberBond
-            whole={p.a + p.b}
-            partA={p.a}
-            partB={null}
-            onSet={() => {}}
-          />
-        );
-      default:
-        return null;
+    const manip = (() => {
+      switch (kind) {
+        case "tens-frame":
+          return (
+            <TensFrame
+              filled={p.a}
+              secondFilled={p.b}
+              mode="fill"
+              onChange={() => {}}
+            />
+          );
+        case "double-tens-frame":
+          return (
+            <DoubleTensFrame
+              leftFilled={p.a}
+              rightFilled={p.b}
+              onAdd={() => {}}
+            />
+          );
+        case "place-value-blocks":
+          return (
+            <PlaceValueBlocks
+              tens={Math.floor(p.a / 10)}
+              ones={p.a % 10}
+              secondTens={Math.floor(p.b / 10)}
+              secondOnes={p.b % 10}
+              onChange={() => {}}
+            />
+          );
+        case "equal-groups":
+          return (
+            <EqualGroups
+              plates={p.a}
+              perPlate={p.b}
+              countedPlates={0}
+              onCount={() => {}}
+            />
+          );
+        case "array-grid":
+          return (
+            <ArrayGrid
+              rows={p.a}
+              cols={p.b}
+              rotated={false}
+              onRotate={() => {}}
+            />
+          );
+        case "number-line":
+          return (
+            <div className="min-w-[800px]">
+              <NumberLine max={20} frogAt={p.a} onHop={() => {}} />
+            </div>
+          );
+        case "number-bond":
+          return (
+            <NumberBond
+              whole={p.a + p.b}
+              partA={p.a}
+              partB={null}
+              onSet={() => {}}
+            />
+          );
+        default:
+          return null;
+      }
+    })();
+
+    if (phase === "quiz") {
+      return (
+        <div className="flex flex-col items-center gap-4">
+          <div className="text-lg font-semibold text-ink/60">
+            Try to remember!
+          </div>
+          <div className="opacity-20 pointer-events-none scale-75 origin-top">
+            {manip}
+          </div>
+        </div>
+      );
     }
+    return manip;
   };
 
   const tileOptions = useMemo(() => {
@@ -222,17 +302,23 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
     );
   }, [currentProblem, lessonId]);
 
+  const promptText = (() => {
+    if (lesson.manipulative === "number-bond")
+      return "What's the missing part?";
+    if (lesson.track === "multiplication")
+      return `What is ${currentProblem.a} × ${currentProblem.b}?`;
+    if (phase === "quiz")
+      return `${currentProblem.a} ${lesson.track === "subtraction" ? "−" : "+"} ${currentProblem.b} = ?`;
+    return "How many altogether?";
+  })();
+
   return (
     <LessonShell
       left={
         <div className="flex flex-col items-center gap-4">
           <Mascot emotion={emotion} />
           <div className="bg-white border-4 border-ink/80 rounded-2xl p-4 text-2xl font-bold text-center">
-            {lesson.track === "multiplication"
-              ? `What is ${currentProblem.a} × ${currentProblem.b}?`
-              : phase === "quiz"
-                ? `${currentProblem.a} ${lesson.track === "subtraction" ? "−" : "+"} ${currentProblem.b} = ?`
-                : `How many altogether?`}
+            {promptText}
           </div>
         </div>
       }
