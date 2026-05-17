@@ -1,0 +1,29 @@
+{
+  "id": "add-20-make-ten-05",
+  "track": "addition",
+  "title": "Make a ten — nearly there",
+  "skill": "add-within-20-make-ten",
+  "manipulative": "double-tens-frame",
+  "intro": [
+    { "a": 9, "b": 5 },
+    { "a": 7, "b": 8 },
+    { "a": 9, "b": 4 }
+  ],
+  "practiceTemplate": {
+    "type": "make-ten",
+    "aRange": [6, 9],
+    "bRange": [3, 7],
+    "constraint": "sum > 10",
+    "count": 5
+  },
+  "quizTemplate": {
+    "type": "make-ten",
+    "aRange": [6, 9],
+    "bRange": [3, 7],
+    "constraint": "sum > 10",
+    "count": 3,
+    "showHint": false
+  },
+  "prerequisites": ["add-20-make-ten-04"],
+  "unlocks": ["add-20-make-ten-06"]
+}

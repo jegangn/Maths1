@@ -1,29 +1,29 @@
 {
-  "id": "add-10-review-01",
+  "id": "add-10-review-02",
   "track": "addition",
-  "title": "Adding within 10 — warm up",
+  "title": "Adding within 10 — a bit more",
   "skill": "add-within-10-review",
   "manipulative": "tens-frame",
   "intro": [
-    { "a": 3, "b": 4 },
     { "a": 2, "b": 5 },
-    { "a": 6, "b": 3 }
+    { "a": 6, "b": 3 },
+    { "a": 4, "b": 4 }
   ],
   "practiceTemplate": {
     "type": "add",
-    "aRange": [2, 7],
-    "bRange": [2, 7],
+    "aRange": [2, 5],
+    "bRange": [2, 5],
     "constraint": "sum <= 10",
     "count": 5
   },
   "quizTemplate": {
     "type": "add",
-    "aRange": [2, 7],
-    "bRange": [2, 7],
+    "aRange": [2, 5],
+    "bRange": [2, 5],
     "constraint": "sum <= 10",
     "count": 3,
     "showHint": false
   },
-  "prerequisites": [],
-  "unlocks": ["add-10-review-02"]
+  "prerequisites": ["add-10-review-01"],
+  "unlocks": ["add-10-review-03"]
 }

@@ -1,0 +1,27 @@
+{
+  "id": "mul-skip-03",
+  "track": "multiplication",
+  "title": "Jumping along — 2s, 5s, 10s",
+  "skill": "mul-skip-counting",
+  "manipulative": "number-line",
+  "intro": [
+    { "a": 10, "b": 3 },
+    { "a": 2, "b": 4 },
+    { "a": 5, "b": 3 }
+  ],
+  "practiceTemplate": {
+    "type": "skip-count",
+    "aRange": [2, 10],
+    "bRange": [2, 5],
+    "count": 5
+  },
+  "quizTemplate": {
+    "type": "skip-count",
+    "aRange": [2, 10],
+    "bRange": [2, 5],
+    "count": 3,
+    "showHint": false
+  },
+  "prerequisites": ["mul-skip-02"],
+  "unlocks": ["mul-skip-04"]
+}

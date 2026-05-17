@@ -1,0 +1,27 @@
+{
+  "id": "mul-groups-04",
+  "track": "multiplication",
+  "title": "Groups champion",
+  "skill": "mul-equal-groups",
+  "manipulative": "equal-groups",
+  "intro": [
+    { "a": 5, "b": 2 },
+    { "a": 3, "b": 2 },
+    { "a": 2, "b": 4 }
+  ],
+  "practiceTemplate": {
+    "type": "equal-groups",
+    "aRange": [2, 5],
+    "bRange": [2, 5],
+    "count": 5
+  },
+  "quizTemplate": {
+    "type": "equal-groups",
+    "aRange": [2, 5],
+    "bRange": [2, 5],
+    "count": 3,
+    "showHint": false
+  },
+  "prerequisites": ["mul-groups-03"],
+  "unlocks": ["mul-arrays-01"]
+}

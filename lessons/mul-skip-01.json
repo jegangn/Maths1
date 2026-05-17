@@ -1,0 +1,27 @@
+{
+  "id": "mul-skip-01",
+  "track": "multiplication",
+  "title": "Hopping by 2s and 5s",
+  "skill": "mul-skip-counting",
+  "manipulative": "number-line",
+  "intro": [
+    { "a": 2, "b": 3 },
+    { "a": 5, "b": 2 },
+    { "a": 10, "b": 3 }
+  ],
+  "practiceTemplate": {
+    "type": "skip-count",
+    "aRange": [2, 10],
+    "bRange": [2, 5],
+    "count": 5
+  },
+  "quizTemplate": {
+    "type": "skip-count",
+    "aRange": [2, 10],
+    "bRange": [2, 5],
+    "count": 3,
+    "showHint": false
+  },
+  "prerequisites": ["mul-arrays-04"],
+  "unlocks": ["mul-skip-02"]
+}

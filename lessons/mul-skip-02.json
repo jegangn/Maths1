@@ -1,0 +1,27 @@
+{
+  "id": "mul-skip-02",
+  "track": "multiplication",
+  "title": "Skip counting — bigger hops",
+  "skill": "mul-skip-counting",
+  "manipulative": "number-line",
+  "intro": [
+    { "a": 5, "b": 2 },
+    { "a": 10, "b": 3 },
+    { "a": 2, "b": 4 }
+  ],
+  "practiceTemplate": {
+    "type": "skip-count",
+    "aRange": [2, 10],
+    "bRange": [2, 5],
+    "count": 5
+  },
+  "quizTemplate": {
+    "type": "skip-count",
+    "aRange": [2, 10],
+    "bRange": [2, 5],
+    "count": 3,
+    "showHint": false
+  },
+  "prerequisites": ["mul-skip-01"],
+  "unlocks": ["mul-skip-03"]
+}

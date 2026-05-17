@@ -1,0 +1,27 @@
+{
+  "id": "sub-20-cross-ten-02",
+  "track": "subtraction",
+  "title": "Back over ten — keep going",
+  "skill": "sub-within-20-cross-ten",
+  "manipulative": "double-tens-frame",
+  "intro": [
+    { "a": 13, "b": 5 },
+    { "a": 15, "b": 6 },
+    { "a": 14, "b": 7 }
+  ],
+  "practiceTemplate": {
+    "type": "subtract",
+    "aRange": [11, 18],
+    "bRange": [3, 8],
+    "count": 5
+  },
+  "quizTemplate": {
+    "type": "subtract",
+    "aRange": [11, 18],
+    "bRange": [3, 8],
+    "count": 3,
+    "showHint": false
+  },
+  "prerequisites": ["sub-20-cross-ten-01"],
+  "unlocks": ["sub-20-cross-ten-03"]
+}

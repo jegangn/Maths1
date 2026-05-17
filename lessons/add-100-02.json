@@ -1,0 +1,27 @@
+{
+  "id": "add-100-02",
+  "track": "addition",
+  "title": "Bigger sums with blocks",
+  "skill": "add-within-100",
+  "manipulative": "place-value-blocks",
+  "intro": [
+    { "a": 34, "b": 22 },
+    { "a": 18, "b": 41 },
+    { "a": 27, "b": 33 }
+  ],
+  "practiceTemplate": {
+    "type": "add",
+    "aRange": [10, 50],
+    "bRange": [10, 50],
+    "count": 5
+  },
+  "quizTemplate": {
+    "type": "add",
+    "aRange": [10, 50],
+    "bRange": [10, 50],
+    "count": 3,
+    "showHint": false
+  },
+  "prerequisites": ["add-100-01"],
+  "unlocks": ["add-100-03"]
+}

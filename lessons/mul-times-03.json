@@ -1,0 +1,27 @@
+{
+  "id": "mul-times-03",
+  "track": "multiplication",
+  "title": "Times tables — 10s",
+  "skill": "mul-times-tables",
+  "manipulative": "array-grid",
+  "intro": [
+    { "a": 10, "b": 3 },
+    { "a": 2, "b": 8 },
+    { "a": 5, "b": 5 }
+  ],
+  "practiceTemplate": {
+    "type": "array",
+    "aRange": [2, 5],
+    "bRange": [2, 10],
+    "count": 5
+  },
+  "quizTemplate": {
+    "type": "array",
+    "aRange": [2, 5],
+    "bRange": [2, 10],
+    "count": 3,
+    "showHint": false
+  },
+  "prerequisites": ["mul-times-02"],
+  "unlocks": ["mul-times-04"]
+}

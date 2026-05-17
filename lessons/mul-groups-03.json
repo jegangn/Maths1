@@ -1,0 +1,27 @@
+{
+  "id": "mul-groups-03",
+  "track": "multiplication",
+  "title": "Counting equal groups",
+  "skill": "mul-equal-groups",
+  "manipulative": "equal-groups",
+  "intro": [
+    { "a": 4, "b": 3 },
+    { "a": 5, "b": 2 },
+    { "a": 3, "b": 2 }
+  ],
+  "practiceTemplate": {
+    "type": "equal-groups",
+    "aRange": [2, 5],
+    "bRange": [2, 5],
+    "count": 5
+  },
+  "quizTemplate": {
+    "type": "equal-groups",
+    "aRange": [2, 5],
+    "bRange": [2, 5],
+    "count": 3,
+    "showHint": false
+  },
+  "prerequisites": ["mul-groups-02"],
+  "unlocks": ["mul-groups-04"]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "mul-arrays-02",
+  "track": "multiplication",
+  "title": "More rows and columns",
+  "skill": "mul-arrays",
+  "manipulative": "array-grid",
+  "intro": [
+    { "a": 2, "b": 5 },
+    { "a": 4, "b": 3 },
+    { "a": 5, "b": 2 }
+  ],
+  "practiceTemplate": {
+    "type": "array",
+    "aRange": [2, 5],
+    "bRange": [2, 5],
+    "count": 5
+  },
+  "quizTemplate": {
+    "type": "array",
+    "aRange": [2, 5],
+    "bRange": [2, 5],
+    "count": 3,
+    "showHint": false
+  },
+  "prerequisites": ["mul-arrays-01"],
+  "unlocks": ["mul-arrays-03"]
+}

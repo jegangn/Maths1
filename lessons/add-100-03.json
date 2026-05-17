@@ -1,0 +1,27 @@
+{
+  "id": "add-100-03",
+  "track": "addition",
+  "title": "Tens and ones — adding up",
+  "skill": "add-within-100",
+  "manipulative": "place-value-blocks",
+  "intro": [
+    { "a": 18, "b": 41 },
+    { "a": 27, "b": 33 },
+    { "a": 45, "b": 28 }
+  ],
+  "practiceTemplate": {
+    "type": "add",
+    "aRange": [10, 50],
+    "bRange": [10, 50],
+    "count": 5
+  },
+  "quizTemplate": {
+    "type": "add",
+    "aRange": [10, 50],
+    "bRange": [10, 50],
+    "count": 3,
+    "showHint": false
+  },
+  "prerequisites": ["add-100-02"],
+  "unlocks": ["add-100-04"]
+}
