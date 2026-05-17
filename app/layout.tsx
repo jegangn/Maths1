@@ -4,6 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Riko's Math",
   description: "A calm maths tutor for young children",
+  manifest: "/manifest.webmanifest",
 };
 
 export const viewport: Viewport = {

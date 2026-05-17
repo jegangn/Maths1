@@ -1,0 +1,14 @@
+{
+  "name": "Riko's Math",
+  "short_name": "Riko Math",
+  "description": "A calm maths tutor for young children",
+  "start_url": "/",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#FAF1E1",
+  "theme_color": "#E8923C",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
