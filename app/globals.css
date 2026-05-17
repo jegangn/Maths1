@@ -31,3 +31,13 @@
       sans-serif;
   }
 }
+
+.portrait-overlay {
+  display: none;
+}
+
+@media (orientation: portrait) {
+  .portrait-overlay {
+    display: flex;
+  }
+}

@@ -41,7 +41,7 @@ export function LessonMap() {
             >
               {isCurrent && <Mascot emotion="idle" />}
               <div
-                className={`w-32 h-32 rounded-full border-4 border-ink/80 flex items-center justify-center text-2xl ${trackColour} ${!isCompleted && !isCurrent ? "opacity-40" : ""}`}
+                className={`w-32 h-32 rounded-full border-4 border-ink/80 flex items-center justify-center text-2xl ${trackColour} ${!isCompleted && !isCurrent ? "opacity-40" : "opacity-100"}`}
               >
                 {isCompleted ? "⭐".repeat(record.stars) : ""}
               </div>
