@@ -12,7 +12,7 @@ export function ArrayGrid({ rows, cols, rotated, onRotate }: Props) {
   const r = rotated ? cols : rows;
   const c = rotated ? rows : cols;
   return (
-    <div className="flex flex-col items-center gap-6">
+    <div className="flex flex-col items-center justify-center gap-6 h-full">
       <motion.div
         animate={{ rotate: rotated ? 90 : 0 }}
         transition={{ type: "spring", stiffness: 200, damping: 20 }}

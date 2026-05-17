@@ -6,8 +6,11 @@ import { useEffect, useState } from "react";
 export default function ParentPage() {
   const { progress, hydrate } = useAppStore();
   const [confirmReset, setConfirmReset] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
     hydrate();
+    setMounted(true);
   }, [hydrate]);
 
   const lessonsThisWeek = progress.sessionHistory
@@ -41,6 +44,15 @@ export default function ParentPage() {
     resetProgress();
     location.href = "/";
   };
+
+  if (!mounted) {
+    return (
+      <div className="p-8 max-w-2xl mx-auto space-y-6">
+        <h1 className="text-3xl font-bold">Parent view</h1>
+        <div className="text-ink/50">Loading…</div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-8 max-w-2xl mx-auto space-y-6">

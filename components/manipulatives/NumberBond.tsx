@@ -29,7 +29,7 @@ function Circle({
 
 export function NumberBond({ whole, partA, partB, onSet }: Props) {
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center justify-center gap-4 h-full">
       <Circle value={whole} testId="nb-whole" onClick={() => onSet("whole")} />
       <div className="flex gap-8">
         <div className="flex flex-col items-center">

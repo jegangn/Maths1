@@ -34,7 +34,7 @@ export function TensFrame({
   };
 
   return (
-    <div className="flex flex-col items-center gap-6">
+    <div className="flex flex-col items-center justify-center gap-6 h-full">
       <div className="grid grid-cols-5 gap-2 p-3 bg-white rounded-2xl border-4 border-ink/80">
         {Array.from({ length: 10 }, (_, i) => {
           const isFirst = i < filled;

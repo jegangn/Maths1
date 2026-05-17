@@ -5,6 +5,9 @@
   <ellipse cx="100" cy="140" rx="50" ry="45" fill="#E8923C" stroke="#2D2A26" stroke-width="2.5"/>
   <!-- belly -->
   <ellipse cx="100" cy="155" rx="30" ry="25" fill="#FAF1E1"/>
+  <!-- paws raised in celebration (in front of body, behind head) -->
+  <ellipse cx="55" cy="60" rx="10" ry="14" fill="#E8923C" stroke="#2D2A26" stroke-width="2.5"/>
+  <ellipse cx="145" cy="60" rx="10" ry="14" fill="#E8923C" stroke="#2D2A26" stroke-width="2.5"/>
   <!-- head -->
   <circle cx="100" cy="80" r="50" fill="#E8923C" stroke="#2D2A26" stroke-width="2.5"/>
   <!-- ears -->
@@ -14,9 +17,9 @@
   <ellipse cx="100" cy="95" rx="20" ry="15" fill="#FAF1E1"/>
   <!-- nose -->
   <circle cx="100" cy="88" r="4" fill="#2D2A26"/>
-  <!-- eyes (celebrating: closed happy arcs) -->
-  <path d="M 78 72 Q 83 76 88 72" stroke="#2D2A26" stroke-width="2.5" fill="none"/>
-  <path d="M 112 72 Q 117 76 122 72" stroke="#2D2A26" stroke-width="2.5" fill="none"/>
-  <!-- open mouth -->
-  <ellipse cx="100" cy="102" rx="6" ry="4" fill="#2D2A26"/>
+  <!-- eyes squinting in joy (upward arcs) -->
+  <path d="M 75 70 Q 83 64 91 70" stroke="#2D2A26" stroke-width="3" fill="none"/>
+  <path d="M 109 70 Q 117 64 125 70" stroke="#2D2A26" stroke-width="3" fill="none"/>
+  <!-- big smile -->
+  <path d="M 88 100 Q 100 112 112 100" stroke="#2D2A26" stroke-width="3" fill="#FAF1E1"/>
 </svg>

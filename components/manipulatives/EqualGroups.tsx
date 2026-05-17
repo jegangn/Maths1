@@ -16,7 +16,7 @@ export function EqualGroups({
   onCount,
 }: Props) {
   return (
-    <div className="flex flex-col items-center gap-6">
+    <div className="flex flex-col items-center justify-center gap-6 h-full">
       <div className="flex gap-6 items-end">
         {Array.from({ length: plates }, (_, p) => {
           const counted = p < countedPlates;
@@ -43,9 +43,6 @@ export function EqualGroups({
             </button>
           );
         })}
-      </div>
-      <div className="text-2xl font-bold">
-        Counted: {countedPlates * perPlate}
       </div>
     </div>
   );

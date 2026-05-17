@@ -1,11 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <g transform="rotate(-5 100 100)">
+  <g transform="rotate(8 100 100)">
     <!-- tail -->
     <ellipse cx="155" cy="135" rx="15" ry="25" fill="#E8923C" stroke="#2D2A26" stroke-width="2.5" transform="rotate(30 155 135)"/>
     <!-- body -->
     <ellipse cx="100" cy="140" rx="50" ry="45" fill="#E8923C" stroke="#2D2A26" stroke-width="2.5"/>
     <!-- belly -->
     <ellipse cx="100" cy="155" rx="30" ry="25" fill="#FAF1E1"/>
+    <!-- raised paw (right side) -->
+    <ellipse cx="145" cy="85" rx="8" ry="12" fill="#E8923C" stroke="#2D2A26" stroke-width="2.5"/>
     <!-- head -->
     <circle cx="100" cy="80" r="50" fill="#E8923C" stroke="#2D2A26" stroke-width="2.5"/>
     <!-- ears -->
@@ -15,8 +17,11 @@
     <ellipse cx="100" cy="95" rx="20" ry="15" fill="#FAF1E1"/>
     <!-- nose -->
     <circle cx="100" cy="88" r="4" fill="#2D2A26"/>
-    <!-- eyes (encouraging: wider open circles) -->
-    <circle cx="83" cy="72" r="5" fill="#2D2A26"/>
-    <circle cx="117" cy="72" r="5" fill="#2D2A26"/>
+    <!-- eyes wider open (r=6) -->
+    <circle cx="83" cy="72" r="6" fill="#2D2A26"/>
+    <circle cx="117" cy="72" r="6" fill="#2D2A26"/>
+    <!-- raised eyebrows -->
+    <path d="M 75 60 Q 83 56 91 60" stroke="#2D2A26" stroke-width="2.5" fill="none"/>
+    <path d="M 109 60 Q 117 56 125 60" stroke="#2D2A26" stroke-width="2.5" fill="none"/>
   </g>
 </svg>

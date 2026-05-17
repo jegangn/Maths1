@@ -44,7 +44,7 @@ export function DoubleTensFrame({ leftFilled, rightFilled, onAdd }: Props) {
     else onAdd({ left: leftFilled, right: rightFilled + 1 });
   };
   return (
-    <div className="flex flex-col items-center gap-6">
+    <div className="flex flex-col items-center justify-center gap-6 h-full">
       <div className="flex gap-6">
         <Frame filled={leftFilled} prefix="L" colour="orange" />
         <Frame filled={rightFilled} prefix="R" colour="blue" />

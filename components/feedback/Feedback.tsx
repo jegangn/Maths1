@@ -12,7 +12,7 @@ export function CorrectBurst({ show }: { show: boolean }) {
           transition={{ duration: 0.6 }}
           className="absolute inset-0 pointer-events-none flex items-center justify-center"
         >
-          <div className="w-32 h-32 rounded-full bg-yellow/40" />
+          <div className="w-64 h-64 rounded-full bg-yellow/70" />
         </motion.div>
       )}
     </AnimatePresence>

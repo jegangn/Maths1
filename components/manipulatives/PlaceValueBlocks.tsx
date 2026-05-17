@@ -31,7 +31,7 @@ export function PlaceValueBlocks({
     (secondTens > 0 || secondOnes > 0);
 
   return (
-    <div className="flex flex-col items-center gap-6">
+    <div className="flex flex-col items-center justify-center gap-6 h-full">
       <div className="flex gap-4 items-end min-h-[200px]">
         {/* First addend — blue rods, coral cubes */}
         {Array.from({ length: tens }, (_, i) => (
