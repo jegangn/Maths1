@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { SwRegister } from "./sw-register";
 
 export const metadata: Metadata = {
   title: "Riko's Math",
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-cream text-ink h-screen overflow-hidden select-none">
+        <SwRegister />
         {children}
       </body>
     </html>
