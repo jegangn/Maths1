@@ -7,7 +7,7 @@ const sounds: Partial<Record<SoundName, Howl>> = {};
 function get(name: SoundName): Howl {
   if (!sounds[name]) {
     sounds[name] = new Howl({
-      src: [`/sounds/${name}.mp3`],
+      src: [`/sounds/${name}.wav`],
       volume: name === "win" ? 0.7 : 0.5,
       preload: true,
     });
