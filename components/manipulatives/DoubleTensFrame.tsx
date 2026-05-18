@@ -8,6 +8,10 @@ interface Props {
   /** For subtraction: mark the last `takeAway` filled dots across both frames
    * with low opacity and a diagonal strikethrough. */
   takeAway?: number;
+  /** Colour for the right frame's dots. Default 'blue' (addition convention
+   * where right = second addend). Pass 'orange' for subtraction so both
+   * frames show the same quantity colour. */
+  rightColour?: "orange" | "blue";
   interactive?: boolean;
 }
 
@@ -72,6 +76,7 @@ export function DoubleTensFrame({
   rightFilled,
   onAdd,
   takeAway = 0,
+  rightColour = "blue",
   interactive = true,
 }: Props) {
   const handleAdd = () => {
@@ -97,7 +102,7 @@ export function DoubleTensFrame({
         <Frame
           filled={rightFilled}
           prefix="R"
-          colour="blue"
+          colour={rightColour}
           takenAwayStart={takenAwayStart}
           frameOffset={leftFilled}
         />
