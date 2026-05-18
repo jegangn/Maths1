@@ -243,6 +243,7 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
                 leftFilled={Math.min(p.a, 10)}
                 rightFilled={Math.max(0, p.a - 10)}
                 takeAway={p.b}
+                rightColour="orange"
                 interactive={false}
                 onAdd={() => {}}
               />
@@ -252,6 +253,7 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
             <DoubleTensFrame
               leftFilled={p.a}
               rightFilled={p.b}
+              rightColour="blue"
               interactive={false}
               onAdd={() => {}}
             />
@@ -388,7 +390,7 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
         </div>
       }
       centre={
-        <div className="relative">
+        <div className="relative overflow-hidden w-full h-full flex items-center justify-center">
           <GentleShake trigger={shakeTrigger}>
             {renderManipulative(lesson.manipulative)}
           </GentleShake>
