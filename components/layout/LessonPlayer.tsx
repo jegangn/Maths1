@@ -20,7 +20,6 @@ import { PlaceValueBlocks } from "@/components/manipulatives/PlaceValueBlocks";
 import { EqualGroups } from "@/components/manipulatives/EqualGroups";
 import { ArrayGrid } from "@/components/manipulatives/ArrayGrid";
 import { NumberLine } from "@/components/manipulatives/NumberLine";
-import { NumberBond } from "@/components/manipulatives/NumberBond";
 import { AnswerTiles } from "@/components/input/AnswerTiles";
 import { NumberPad } from "@/components/input/NumberPad";
 import { ProgressBar } from "./ProgressBar";
@@ -262,21 +261,47 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
               onRotate={() => {}}
             />
           );
-        case "number-line":
+        case "number-line": {
+          const isSubtraction = lesson.track === "subtraction";
+          const isSkipCount = lesson.track === "multiplication";
+          if (isSubtraction) {
+            return (
+              <div className="min-w-[800px]">
+                <NumberLine
+                  max={20}
+                  frogAt={p.a}
+                  startAt={p.a}
+                  hopCount={p.b}
+                  hopSize={1}
+                  direction="backward"
+                  showHops={true}
+                  onHop={() => {}}
+                />
+              </div>
+            );
+          }
+          if (isSkipCount) {
+            return (
+              <div className="min-w-[800px]">
+                <NumberLine
+                  max={p.a * p.b + p.a}
+                  frogAt={p.a * p.b}
+                  startAt={0}
+                  hopCount={p.b}
+                  hopSize={p.a}
+                  direction="forward"
+                  showHops={true}
+                  onHop={() => {}}
+                />
+              </div>
+            );
+          }
           return (
             <div className="min-w-[800px]">
               <NumberLine max={20} frogAt={p.a} onHop={() => {}} />
             </div>
           );
-        case "number-bond":
-          return (
-            <NumberBond
-              whole={p.a + p.b}
-              partA={p.a}
-              partB={null}
-              onSet={() => {}}
-            />
-          );
+        }
         default:
           return null;
       }
@@ -310,8 +335,6 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
   }, [currentProblem, lessonId]);
 
   const promptText = (() => {
-    if (lesson.manipulative === "number-bond")
-      return "What's the missing part?";
     if (lesson.track === "multiplication")
       return `What is ${currentProblem.a} × ${currentProblem.b}?`;
     if (phase === "quiz")

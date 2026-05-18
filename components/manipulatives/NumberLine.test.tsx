@@ -21,4 +21,25 @@ describe("NumberLine", () => {
     fireEvent.click(screen.getByTestId("nl-hop-left"));
     expect(onHop).toHaveBeenCalledWith(2);
   });
+
+  it("showHops renders one arc per hop", () => {
+    render(
+      <NumberLine
+        max={10}
+        frogAt={4}
+        onHop={() => {}}
+        startAt={7}
+        hopCount={3}
+        hopSize={1}
+        direction="backward"
+        showHops={true}
+      />,
+    );
+    expect(screen.getAllByTestId("nl-hop-arc").length).toBe(3);
+  });
+
+  it("showHops=false renders no arcs", () => {
+    render(<NumberLine max={10} frogAt={7} onHop={() => {}} />);
+    expect(screen.queryAllByTestId("nl-hop-arc").length).toBe(0);
+  });
 });
