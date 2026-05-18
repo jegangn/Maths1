@@ -146,10 +146,11 @@ test("[manip] tens-frame (add-10-review-01) — 3 orange + 4 blue dots for probl
   expect(blueCount).toBe(4); // p.b = 4
 });
 
-test("[manip] tens-frame subtraction (sub-5-takeaway-01) — 5 orange + 2 blue dots for problem 5−2", async ({
+test("[manip] tens-frame subtraction (sub-5-takeaway-01) — 5 orange dots, last 2 struck through for problem 5−2", async ({
   page,
 }) => {
   // Intro problem 0: a=5, b=2; answer=3
+  // Fix: LessonPlayer passes filled={p.a}=5, secondFilled=0, takeAway={p.b}=2
   await page.goto("/lesson/sub-5-takeaway-01/");
   await page.waitForLoadState("networkidle");
   await page.waitForTimeout(500);
@@ -161,9 +162,8 @@ test("[manip] tens-frame subtraction (sub-5-takeaway-01) — 5 orange + 2 blue d
     .locator('[data-testid="tf-cell-filled-b"]')
     .count();
 
-  // LessonPlayer passes filled={p.a}=5, secondFilled={p.b}=2 for tens-frame
-  expect(orangeCount).toBe(5); // p.a = 5
-  expect(blueCount).toBe(2); // p.b = 2
+  expect(orangeCount).toBe(5); // filled=p.a=5
+  expect(blueCount).toBe(0); // secondFilled=0 for subtraction (no blue addend)
 });
 
 test("[manip] double-tens-frame (add-20-make-ten-01) — left 9, right 4 for problem 9+4", async ({
@@ -185,13 +185,11 @@ test("[manip] double-tens-frame (add-20-make-ten-01) — left 9, right 4 for pro
   expect(rightFilled).toBe(4); // p.b = 4
 });
 
-test("[manip] double-tens-frame subtraction (sub-20-cross-ten-01) — left 12, right 0 for 12−4", async ({
+test("[manip] double-tens-frame subtraction (sub-20-cross-ten-01) — left 10, right 2 for 12−4", async ({
   page,
 }) => {
   // Intro problem 0: a=12, b=4; answer=8
-  // LessonPlayer passes leftFilled={p.a}=12, rightFilled={p.b}=4
-  // Left frame max=10 so leftFilled=12 fills all 10 + overflows (capped at 10 in Frame component)
-  // The Frame renders cells 0..9, fills i<filled, so for filled=12: all 10 cells filled
+  // Fix: LessonPlayer passes leftFilled=min(12,10)=10, rightFilled=max(0,12-10)=2, takeAway=4
   await page.goto("/lesson/sub-20-cross-ten-01/");
   await page.waitForLoadState("networkidle");
   await page.waitForTimeout(500);
@@ -203,10 +201,9 @@ test("[manip] double-tens-frame subtraction (sub-20-cross-ten-01) — left 12, r
     .locator('[data-testid="dtf-cell-R-filled"]')
     .count();
 
-  // p.a=12 → Frame renders 10 filled cells (all 10 slots, since 12 > 10)
+  // a=12 → leftFilled=min(12,10)=10, rightFilled=max(0,12-10)=2
   expect(leftFilled).toBe(10);
-  // p.b=4 → Frame renders 4 filled cells
-  expect(rightFilled).toBe(4);
+  expect(rightFilled).toBe(2);
 });
 
 test("[manip] place-value-blocks (add-100-01) — 2 rods + 3 cubes first, 1 rod + 5 cubes second, no add buttons", async ({

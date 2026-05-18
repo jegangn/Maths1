@@ -7,17 +7,23 @@ interface Props {
    * static-visualisation mode: first `filled` dots are orange, next
    * `secondFilled` dots are blue, so kids see both addends at once. */
   secondFilled?: number;
+  /** For subtraction visualisation: mark the last `takeAway` filled cells
+   * with low opacity and a diagonal strikethrough so kids see them removed. */
+  takeAway?: number;
   onChange: (next: number) => void;
   mode: "fill" | "take-away";
   highlightTo10?: boolean;
+  interactive?: boolean;
 }
 
 export function TensFrame({
   filled,
   secondFilled = 0,
+  takeAway = 0,
   onChange,
   mode,
   highlightTo10,
+  interactive = true,
 }: Props) {
   const total = filled + secondFilled;
 
@@ -41,6 +47,9 @@ export function TensFrame({
           const isSecond = !isFirst && i < total;
           const isOn = isFirst || isSecond;
           const isHintCell = highlightTo10 && !isOn && i < 10;
+          // takeAway: the LAST `takeAway` of the filled cells get the struck-out treatment
+          const isTakenAway =
+            takeAway > 0 && i >= filled - takeAway && i < filled;
           return (
             <button
               key={i}
@@ -55,13 +64,35 @@ export function TensFrame({
               className={`w-16 h-16 rounded-xl flex items-center justify-center ${isHintCell ? "bg-yellow/30" : "bg-cream"}`}
               style={{ outline: "2px solid var(--ink)" }}
             >
-              {isFirst && <div className="w-10 h-10 rounded-full bg-orange" />}
+              {isFirst && (
+                <div
+                  className={`relative w-10 h-10 rounded-full bg-orange ${isTakenAway ? "opacity-30" : ""}`}
+                >
+                  {isTakenAway && (
+                    <svg
+                      className="absolute inset-0 w-full h-full"
+                      viewBox="0 0 40 40"
+                      aria-hidden="true"
+                    >
+                      <line
+                        x1="4"
+                        y1="4"
+                        x2="36"
+                        y2="36"
+                        stroke="black"
+                        strokeWidth="4"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  )}
+                </div>
+              )}
               {isSecond && <div className="w-10 h-10 rounded-full bg-blue" />}
             </button>
           );
         })}
       </div>
-      {mode === "fill" && (
+      {interactive && mode === "fill" && (
         <button
           data-testid="tf-tray-dot"
           onClick={handleTrayClick}

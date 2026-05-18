@@ -215,19 +215,44 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
     const manip = (() => {
       switch (kind) {
         case "tens-frame":
+          if (lesson.track === "subtraction") {
+            return (
+              <TensFrame
+                filled={p.a}
+                secondFilled={0}
+                takeAway={p.b}
+                mode="fill"
+                interactive={false}
+                onChange={() => {}}
+              />
+            );
+          }
           return (
             <TensFrame
               filled={p.a}
               secondFilled={p.b}
               mode="fill"
+              interactive={false}
               onChange={() => {}}
             />
           );
         case "double-tens-frame":
+          if (lesson.track === "subtraction") {
+            return (
+              <DoubleTensFrame
+                leftFilled={Math.min(p.a, 10)}
+                rightFilled={Math.max(0, p.a - 10)}
+                takeAway={p.b}
+                interactive={false}
+                onAdd={() => {}}
+              />
+            );
+          }
           return (
             <DoubleTensFrame
               leftFilled={p.a}
               rightFilled={p.b}
+              interactive={false}
               onAdd={() => {}}
             />
           );
@@ -275,6 +300,7 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
                   hopSize={1}
                   direction="backward"
                   showHops={true}
+                  interactive={false}
                   onHop={() => {}}
                 />
               </div>
@@ -291,6 +317,7 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
                   hopSize={p.a}
                   direction="forward"
                   showHops={true}
+                  interactive={false}
                   onHop={() => {}}
                 />
               </div>
@@ -298,7 +325,12 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
           }
           return (
             <div className="min-w-[800px]">
-              <NumberLine max={20} frogAt={p.a} onHop={() => {}} />
+              <NumberLine
+                max={20}
+                frogAt={p.a}
+                interactive={false}
+                onHop={() => {}}
+              />
             </div>
           );
         }
@@ -341,6 +373,7 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
       return `What is ${currentProblem.a} × ${currentProblem.b}?`;
     if (phase === "quiz")
       return `${currentProblem.a} ${lesson.track === "subtraction" ? "−" : "+"} ${currentProblem.b} = ?`;
+    if (lesson.track === "subtraction") return "How many are left?";
     return "How many altogether?";
   })();
 

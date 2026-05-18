@@ -34,4 +34,27 @@ describe("TensFrame", () => {
     fireEvent.click(screen.getAllByTestId("tf-cell-filled-a")[0]);
     expect(onChange).toHaveBeenCalledWith(4);
   });
+
+  it("renders takeAway cells with strikethrough SVG", () => {
+    const { container } = render(
+      <TensFrame filled={5} takeAway={2} onChange={() => {}} mode="fill" />,
+    );
+    // The last 2 filled cells should have an SVG (strikethrough) inside them
+    const svgs = container.querySelectorAll(
+      '[data-testid="tf-cell-filled-a"] svg',
+    );
+    expect(svgs.length).toBe(2);
+  });
+
+  it("does not render tray dot when interactive=false", () => {
+    render(
+      <TensFrame
+        filled={3}
+        onChange={() => {}}
+        mode="fill"
+        interactive={false}
+      />,
+    );
+    expect(screen.queryByTestId("tf-tray-dot")).toBeNull();
+  });
 });
