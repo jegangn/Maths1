@@ -13,6 +13,7 @@ interface Props {
   hopSize?: number;
   direction?: "forward" | "backward";
   showHops?: boolean;
+  interactive?: boolean;
 }
 
 export function NumberLine({
@@ -25,6 +26,7 @@ export function NumberLine({
   hopSize = 1,
   direction = "forward",
   showHops = false,
+  interactive = true,
 }: Props) {
   const ticks = Array.from({ length: max + 1 }, (_, i) => i);
   const tickPercent = (i: number) => (i / max) * 100;
@@ -112,28 +114,30 @@ export function NumberLine({
         </motion.div>
       </div>
 
-      <div className="flex gap-4">
-        <button
-          data-testid="nl-hop-left"
-          onClick={() => {
-            play("drop");
-            onHop(Math.max(0, frogAt - step));
-          }}
-          className="px-5 py-3 bg-blue rounded-xl border-2 border-ink/80"
-        >
-          ← Hop
-        </button>
-        <button
-          data-testid="nl-hop-right"
-          onClick={() => {
-            play("drop");
-            onHop(Math.min(max, frogAt + step));
-          }}
-          className="px-5 py-3 bg-blue rounded-xl border-2 border-ink/80"
-        >
-          Hop →
-        </button>
-      </div>
+      {interactive && (
+        <div className="flex gap-4">
+          <button
+            data-testid="nl-hop-left"
+            onClick={() => {
+              play("drop");
+              onHop(Math.max(0, frogAt - step));
+            }}
+            className="px-5 py-3 bg-blue rounded-xl border-2 border-ink/80"
+          >
+            ← Hop
+          </button>
+          <button
+            data-testid="nl-hop-right"
+            onClick={() => {
+              play("drop");
+              onHop(Math.min(max, frogAt + step));
+            }}
+            className="px-5 py-3 bg-blue rounded-xl border-2 border-ink/80"
+          >
+            Hop →
+          </button>
+        </div>
+      )}
     </div>
   );
 }

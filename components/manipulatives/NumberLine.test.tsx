@@ -42,4 +42,12 @@ describe("NumberLine", () => {
     render(<NumberLine max={10} frogAt={7} onHop={() => {}} />);
     expect(screen.queryAllByTestId("nl-hop-arc").length).toBe(0);
   });
+
+  it("does not render hop buttons when interactive=false", () => {
+    render(
+      <NumberLine max={10} frogAt={5} onHop={() => {}} interactive={false} />,
+    );
+    expect(screen.queryByTestId("nl-hop-left")).toBeNull();
+    expect(screen.queryByTestId("nl-hop-right")).toBeNull();
+  });
 });

@@ -19,4 +19,16 @@ describe("DoubleTensFrame", () => {
     fireEvent.click(screen.getByTestId("dtf-tray-dot"));
     expect(onAdd).toHaveBeenLastCalledWith({ left: 10, right: 1 });
   });
+
+  it("does not render tray dot when interactive=false", () => {
+    render(
+      <DoubleTensFrame
+        leftFilled={3}
+        rightFilled={0}
+        onAdd={() => {}}
+        interactive={false}
+      />,
+    );
+    expect(screen.queryByTestId("dtf-tray-dot")).toBeNull();
+  });
 });
