@@ -23,5 +23,5 @@
     "showHint": false
   },
   "prerequisites": ["sub-10-countback-04"],
-  "unlocks": ["sub-10-missing-01"]
+  "unlocks": ["sub-20-cross-ten-01"]
 }

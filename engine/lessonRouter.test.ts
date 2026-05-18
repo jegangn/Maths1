@@ -37,8 +37,8 @@ describe("decideNextLesson", () => {
   it("routes to prerequisite after 3 failed attempts on a lesson with prereqs", () => {
     const p = {
       ...blankProgress,
-      currentLessonId: "add-10-bonds-01",
-      failedAttemptCounts: { "add-10-bonds-01": 3 },
+      currentLessonId: "add-20-make-ten-01",
+      failedAttemptCounts: { "add-20-make-ten-01": 3 },
     };
     expect(decideNextLesson(p)).toBe("add-10-review-03");
   });

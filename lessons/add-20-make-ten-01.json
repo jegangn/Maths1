@@ -24,6 +24,6 @@
     "count": 3,
     "showHint": false
   },
-  "prerequisites": ["add-10-bonds-05"],
+  "prerequisites": ["add-10-review-03"],
   "unlocks": ["add-20-make-ten-02"]
 }

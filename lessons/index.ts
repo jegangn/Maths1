@@ -2,11 +2,6 @@ import type { Lesson } from "@/lib/types";
 import addReview01 from "./add-10-review-01.json" assert { type: "json" };
 import addReview02 from "./add-10-review-02.json" assert { type: "json" };
 import addReview03 from "./add-10-review-03.json" assert { type: "json" };
-import addBonds01 from "./add-10-bonds-01.json" assert { type: "json" };
-import addBonds02 from "./add-10-bonds-02.json" assert { type: "json" };
-import addBonds03 from "./add-10-bonds-03.json" assert { type: "json" };
-import addBonds04 from "./add-10-bonds-04.json" assert { type: "json" };
-import addBonds05 from "./add-10-bonds-05.json" assert { type: "json" };
 import addMakeTen01 from "./add-20-make-ten-01.json" assert { type: "json" };
 import addMakeTen02 from "./add-20-make-ten-02.json" assert { type: "json" };
 import addMakeTen03 from "./add-20-make-ten-03.json" assert { type: "json" };
@@ -26,10 +21,6 @@ import subCountback02 from "./sub-10-countback-02.json" assert { type: "json" };
 import subCountback03 from "./sub-10-countback-03.json" assert { type: "json" };
 import subCountback04 from "./sub-10-countback-04.json" assert { type: "json" };
 import subCountback05 from "./sub-10-countback-05.json" assert { type: "json" };
-import subMissing01 from "./sub-10-missing-01.json" assert { type: "json" };
-import subMissing02 from "./sub-10-missing-02.json" assert { type: "json" };
-import subMissing03 from "./sub-10-missing-03.json" assert { type: "json" };
-import subMissing04 from "./sub-10-missing-04.json" assert { type: "json" };
 import subCrossTen01 from "./sub-20-cross-ten-01.json" assert { type: "json" };
 import subCrossTen02 from "./sub-20-cross-ten-02.json" assert { type: "json" };
 import subCrossTen03 from "./sub-20-cross-ten-03.json" assert { type: "json" };
@@ -59,11 +50,6 @@ export const allLessons: Record<string, Lesson> = {
   "add-10-review-01": addReview01 as unknown as Lesson,
   "add-10-review-02": addReview02 as unknown as Lesson,
   "add-10-review-03": addReview03 as unknown as Lesson,
-  "add-10-bonds-01": addBonds01 as unknown as Lesson,
-  "add-10-bonds-02": addBonds02 as unknown as Lesson,
-  "add-10-bonds-03": addBonds03 as unknown as Lesson,
-  "add-10-bonds-04": addBonds04 as unknown as Lesson,
-  "add-10-bonds-05": addBonds05 as unknown as Lesson,
   "add-20-make-ten-01": addMakeTen01 as unknown as Lesson,
   "add-20-make-ten-02": addMakeTen02 as unknown as Lesson,
   "add-20-make-ten-03": addMakeTen03 as unknown as Lesson,
@@ -83,10 +69,6 @@ export const allLessons: Record<string, Lesson> = {
   "sub-10-countback-03": subCountback03 as unknown as Lesson,
   "sub-10-countback-04": subCountback04 as unknown as Lesson,
   "sub-10-countback-05": subCountback05 as unknown as Lesson,
-  "sub-10-missing-01": subMissing01 as unknown as Lesson,
-  "sub-10-missing-02": subMissing02 as unknown as Lesson,
-  "sub-10-missing-03": subMissing03 as unknown as Lesson,
-  "sub-10-missing-04": subMissing04 as unknown as Lesson,
   "sub-20-cross-ten-01": subCrossTen01 as unknown as Lesson,
   "sub-20-cross-ten-02": subCrossTen02 as unknown as Lesson,
   "sub-20-cross-ten-03": subCrossTen03 as unknown as Lesson,

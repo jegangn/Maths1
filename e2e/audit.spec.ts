@@ -209,15 +209,15 @@ test("visual audit — 20 screenshots", async ({ page, context }) => {
     "Tens-frame quiz — NumberPad visible? Manipulative collapsed/reference visible?",
   );
 
-  // ── 06 — Number-bond intro ────────────────────────────────────────────────
+  // ── 06 — Add-10-review-03 intro (number-bond lessons removed) ────────────
   await page.evaluate(() => localStorage.clear());
-  await page.goto("/lesson/add-10-bonds-01/");
+  await page.goto("/lesson/add-10-review-03/");
   await page.waitForLoadState("networkidle");
   await page.waitForTimeout(500);
   await snap(
     page,
-    "06-number-bond.png",
-    "Number-bond manipulative: three connected circles visible, whole filled, partB missing?",
+    "06-add-10-review-03.png",
+    "add-10-review-03 intro (6+3): tens-frame manipulative, answer tiles present?",
   );
 
   // ── 07 — Double tens-frame ────────────────────────────────────────────────
@@ -426,6 +426,28 @@ test("visual audit — 20 screenshots", async ({ page, context }) => {
       `[FAIL] screenshot 20 (lesson-after-reload): ${(e as Error).message}`,
     );
   }
+
+  // ── 21 — Multiplication intro tiles include correct answer (3×4=12) ──────
+  await page.evaluate(() => localStorage.clear());
+  await page.goto("/lesson/mul-arrays-01/");
+  await page.waitForLoadState("networkidle");
+  await page.waitForTimeout(500);
+  await snap(
+    page,
+    "21-mul-arrays-tiles.png",
+    "mul-arrays-01 intro (3×4): answer tiles visible? Should include 12 not 7?",
+  );
+
+  // ── 22 — Subtraction intro tiles include correct answer (5−2=3) ──────────
+  await page.evaluate(() => localStorage.clear());
+  await page.goto("/lesson/sub-5-takeaway-01/");
+  await page.waitForLoadState("networkidle");
+  await page.waitForTimeout(500);
+  await snap(
+    page,
+    "22-sub-takeaway-tiles.png",
+    "sub-5-takeaway-01 intro (5−2): answer tiles visible? Should include 3 not 7?",
+  );
 
   // ── Final: print accumulated errors ──────────────────────────────────────
   console.log("\n═══════════════════════════════════════");
