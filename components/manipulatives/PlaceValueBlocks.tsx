@@ -6,6 +6,7 @@ interface Props {
   ones: number;
   secondTens?: number;
   secondOnes?: number;
+  interactive?: boolean;
   onChange: (next: { tens: number; ones: number }) => void;
 }
 
@@ -14,6 +15,7 @@ export function PlaceValueBlocks({
   ones,
   secondTens,
   secondOnes,
+  interactive = true,
   onChange,
 }: Props) {
   const handleAddRod = () => {
@@ -76,22 +78,24 @@ export function PlaceValueBlocks({
           </>
         )}
       </div>
-      <div className="flex gap-4">
-        <button
-          data-testid="pv-add-rod"
-          onClick={handleAddRod}
-          className="px-4 py-3 bg-blue rounded-xl border-2 border-ink/80"
-        >
-          + Rod (10)
-        </button>
-        <button
-          data-testid="pv-add-cube"
-          onClick={handleAddCube}
-          className="px-4 py-3 bg-coral rounded-xl border-2 border-ink/80"
-        >
-          + Cube (1)
-        </button>
-      </div>
+      {interactive && (
+        <div className="flex gap-4">
+          <button
+            data-testid="pv-add-rod"
+            onClick={handleAddRod}
+            className="px-4 py-3 bg-blue rounded-xl border-2 border-ink/80"
+          >
+            + Rod (10)
+          </button>
+          <button
+            data-testid="pv-add-cube"
+            onClick={handleAddCube}
+            className="px-4 py-3 bg-coral rounded-xl border-2 border-ink/80"
+          >
+            + Cube (1)
+          </button>
+        </div>
+      )}
     </div>
   );
 }

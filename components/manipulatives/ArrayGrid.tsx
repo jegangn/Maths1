@@ -5,10 +5,17 @@ interface Props {
   rows: number;
   cols: number;
   rotated: boolean;
+  interactive?: boolean;
   onRotate: () => void;
 }
 
-export function ArrayGrid({ rows, cols, rotated, onRotate }: Props) {
+export function ArrayGrid({
+  rows,
+  cols,
+  rotated,
+  interactive = true,
+  onRotate,
+}: Props) {
   const r = rotated ? cols : rows;
   const c = rotated ? rows : cols;
   return (
@@ -27,13 +34,15 @@ export function ArrayGrid({ rows, cols, rotated, onRotate }: Props) {
           />
         ))}
       </motion.div>
-      <button
-        data-testid="ag-rotate"
-        onClick={onRotate}
-        className="px-5 py-3 bg-blue rounded-xl border-2 border-ink/80"
-      >
-        Rotate
-      </button>
+      {interactive && (
+        <button
+          data-testid="ag-rotate"
+          onClick={onRotate}
+          className="px-5 py-3 bg-blue rounded-xl border-2 border-ink/80"
+        >
+          Rotate
+        </button>
+      )}
     </div>
   );
 }

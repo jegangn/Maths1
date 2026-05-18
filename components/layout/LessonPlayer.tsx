@@ -55,11 +55,16 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
 
   const phases: PhaseList[] = useMemo(() => {
     if (!lesson) return [];
+    const computeAnswer = (a: number, b: number): number => {
+      if (lesson.track === "multiplication") return a * b;
+      if (lesson.track === "subtraction") return a - b;
+      return a + b;
+    };
     const intro: Problem[] = lesson.intro.map((p, i) => ({
       id: `i-${i}`,
       a: p.a,
       b: p.b,
-      answer: p.a + p.b,
+      answer: computeAnswer(p.a, p.b),
       inputMode: "tap",
     }));
     const practice = generateProblems(
@@ -234,6 +239,7 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
               ones={p.a % 10}
               secondTens={Math.floor(p.b / 10)}
               secondOnes={p.b % 10}
+              interactive={false}
               onChange={() => {}}
             />
           );
@@ -252,6 +258,7 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
               rows={p.a}
               cols={p.b}
               rotated={false}
+              interactive={false}
               onRotate={() => {}}
             />
           );
