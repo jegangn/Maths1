@@ -8,9 +8,17 @@ describe("TensFrame", () => {
     expect(screen.getAllByTestId("tf-cell").length).toBe(10);
   });
 
-  it("renders n filled cells when filled=n", () => {
+  it("renders n filled-a cells when filled=n", () => {
     render(<TensFrame filled={4} onChange={() => {}} mode="fill" />);
-    expect(screen.getAllByTestId("tf-cell-filled").length).toBe(4);
+    expect(screen.getAllByTestId("tf-cell-filled-a").length).toBe(4);
+  });
+
+  it("renders secondFilled cells with tf-cell-filled-b testid", () => {
+    render(
+      <TensFrame filled={3} secondFilled={4} onChange={() => {}} mode="fill" />,
+    );
+    expect(screen.getAllByTestId("tf-cell-filled-a").length).toBe(3);
+    expect(screen.getAllByTestId("tf-cell-filled-b").length).toBe(4);
   });
 
   it("calls onChange when a tray dot is tapped (fill mode)", () => {
@@ -23,7 +31,7 @@ describe("TensFrame", () => {
   it("calls onChange when a filled cell is tapped (take-away mode)", () => {
     const onChange = vi.fn();
     render(<TensFrame filled={5} onChange={onChange} mode="take-away" />);
-    fireEvent.click(screen.getAllByTestId("tf-cell-filled")[0]);
+    fireEvent.click(screen.getAllByTestId("tf-cell-filled-a")[0]);
     expect(onChange).toHaveBeenCalledWith(4);
   });
 });

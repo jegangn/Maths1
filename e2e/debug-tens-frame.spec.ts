@@ -35,12 +35,18 @@ test("tens-frame: dots visible, no console errors", async ({ page }) => {
     .catch(() => {});
   await page.waitForTimeout(800);
 
-  // Count filled cells
-  const filledCells = await page
-    .locator('[data-testid="tf-cell-filled"]')
+  // Count filled cells by colour group
+  const filledA = await page
+    .locator('[data-testid="tf-cell-filled-a"]')
     .count();
+  const filledB = await page
+    .locator('[data-testid="tf-cell-filled-b"]')
+    .count();
+  const filledCells = filledA + filledB;
   const allCells = await page
-    .locator('[data-testid="tf-cell"], [data-testid="tf-cell-filled"]')
+    .locator(
+      '[data-testid="tf-cell"], [data-testid="tf-cell-filled-a"], [data-testid="tf-cell-filled-b"]',
+    )
     .count();
 
   console.log(`\n=== TENS FRAME DEBUG ===`);
@@ -48,17 +54,23 @@ test("tens-frame: dots visible, no console errors", async ({ page }) => {
   console.log(
     `Filled cells: ${filledCells} (first problem 3+4: 3 orange + 4 blue = 7)`,
   );
+  console.log(`  Orange (tf-cell-filled-a): ${filledA} (should be 3)`);
+  console.log(`  Blue   (tf-cell-filled-b): ${filledB} (should be 4)`);
 
   // Count visible orange dots inside the tens frame
   // A dot is "visible" if it's not scaled to 0
   const orangeDots = await page
-    .locator('[data-testid="tf-cell-filled"] > div')
+    .locator(
+      '[data-testid="tf-cell-filled-a"] > div, [data-testid="tf-cell-filled-b"] > div',
+    )
     .count();
-  console.log(`Orange dot elements inside filled cells: ${orangeDots}`);
+  console.log(`Dot elements inside filled cells: ${orangeDots}`);
 
-  // Check transform styles on orange dots (scale:0 means invisible)
+  // Check transform styles on dots (scale:0 means invisible)
   const dotStyles = await page
-    .locator('[data-testid="tf-cell-filled"] > div')
+    .locator(
+      '[data-testid="tf-cell-filled-a"] > div, [data-testid="tf-cell-filled-b"] > div',
+    )
     .evaluateAll((els) => els.map((el) => (el as HTMLElement).style.transform));
   console.log(`Dot transforms: ${JSON.stringify(dotStyles)}`);
 
@@ -95,8 +107,9 @@ test("tens-frame: dots visible, no console errors", async ({ page }) => {
 
   // Assertions
   expect(allCells).toBe(10);
-  // First problem is 3+4: p.a=3 orange dots + p.b=4 blue dots = 7 filled cells
-  // (TensFrame now shows both addends: orange for a, blue for b)
+  // First problem is 3+4: p.a=3 orange (tf-cell-filled-a) + p.b=4 blue (tf-cell-filled-b)
+  expect(filledA).toBe(3);
+  expect(filledB).toBe(4);
   expect(filledCells).toBe(7);
 
   // All dots should be visible (not scale:0)

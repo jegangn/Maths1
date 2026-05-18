@@ -44,7 +44,13 @@ export function TensFrame({
           return (
             <button
               key={i}
-              data-testid={isOn ? "tf-cell-filled" : "tf-cell"}
+              data-testid={
+                isFirst
+                  ? "tf-cell-filled-a"
+                  : isSecond
+                    ? "tf-cell-filled-b"
+                    : "tf-cell"
+              }
               onClick={() => handleCellClick(i)}
               className={`w-16 h-16 rounded-xl flex items-center justify-center ${isHintCell ? "bg-yellow/30" : "bg-cream"}`}
               style={{ outline: "2px solid var(--ink)" }}
