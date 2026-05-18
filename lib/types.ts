@@ -5,8 +5,7 @@ export type ManipulativeKind =
   | "place-value-blocks"
   | "equal-groups"
   | "array-grid"
-  | "number-line"
-  | "number-bond";
+  | "number-line";
 
 export type ProblemType =
   | "add"
