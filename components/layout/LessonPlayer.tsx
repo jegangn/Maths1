@@ -326,6 +326,8 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
     if (currentProblem.inputMode !== "tap") return [];
     const distractors = generateDistractors(
       currentProblem.answer,
+      currentProblem.a,
+      currentProblem.b,
       `${lessonId}-${currentProblem.id}`,
     );
     return shuffle(
