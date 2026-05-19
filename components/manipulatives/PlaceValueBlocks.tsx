@@ -53,7 +53,7 @@ export function PlaceValueBlocks({
           ))}
         </div>
 
-        {/* Separator + second addend */}
+        {/* Separator + second addend — same colours as the first so both look equally "real" */}
         {hasSecond && (
           <>
             <div className="text-3xl font-bold text-ink self-center px-2">
@@ -63,7 +63,7 @@ export function PlaceValueBlocks({
               <div
                 key={`r2${i}`}
                 data-testid="pv-rod-second"
-                className="w-10 h-[180px] bg-blue/60 rounded-md border-2 border-blue border-dashed"
+                className="w-10 h-[180px] bg-blue rounded-md border-2 border-ink/80"
               />
             ))}
             <div className="flex flex-wrap w-32 gap-1 items-end">
@@ -71,7 +71,7 @@ export function PlaceValueBlocks({
                 <div
                   key={`c2${i}`}
                   data-testid="pv-cube-second"
-                  className="w-8 h-8 bg-blue/60 rounded-sm border-2 border-blue border-dashed"
+                  className="w-8 h-8 bg-coral rounded-sm border-2 border-ink/80"
                 />
               ))}
             </div>

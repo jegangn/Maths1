@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type {
   Problem,
@@ -14,6 +16,11 @@ import { computeStars, didPass } from "@/engine/masteryTracker";
 import { useAppStore } from "@/engine/store";
 import { LessonShell } from "./LessonShell";
 import { Mascot, type MascotEmotion } from "@/components/mascot/Mascot";
+import {
+  pickCharacterForLesson,
+  pickVariant,
+  type CelebrationVariant,
+} from "@/lib/mascotData";
 import { TensFrame } from "@/components/manipulatives/TensFrame";
 import { DoubleTensFrame } from "@/components/manipulatives/DoubleTensFrame";
 import { PlaceValueBlocks } from "@/components/manipulatives/PlaceValueBlocks";
@@ -51,6 +58,12 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
     quizTotal: 0,
   });
   const [triggeredStuckHint, setTriggeredStuckHint] = useState(false);
+  const [streak, setStreak] = useState(0);
+  const [celebration, setCelebration] = useState<
+    CelebrationVariant | undefined
+  >(undefined);
+  // Same character for the whole lesson — deterministic per lessonId.
+  const character = useMemo(() => pickCharacterForLesson(lessonId), [lessonId]);
 
   const phases: PhaseList[] = useMemo(() => {
     if (!lesson) return [];
@@ -139,11 +152,19 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
   const onCorrect = () => {
     play("correct");
     setShowCorrect(true);
+    const firstTry = wrongCount === 0;
+    const nextStreak = firstTry ? streak + 1 : 1;
+    setStreak(nextStreak);
+    const picked = pickVariant(nextStreak);
+    setCelebration(picked);
     setEmotion("happy");
+    // Adaptive window: variant duration + 350ms buffer so particles finish.
+    // Capped to a max so even rare 1.4s variants don't make the kid wait too long.
+    const windowMs = Math.min(picked.duration * 1000 + 350, 1750);
     setTimeout(() => {
       setShowCorrect(false);
       setEmotion("idle");
-      const firstTry = wrongCount === 0;
+      setCelebration(undefined);
       const newOutcome = { ...outcome };
       if (phase === "practice") {
         newOutcome.practiceTotal++;
@@ -170,7 +191,7 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
         setProblemIndex(nextIndex);
         saveState(phaseIndex, nextIndex);
       }
-    }, 700);
+    }, windowMs);
   };
 
   const onWrong = () => {
@@ -178,6 +199,7 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
     setShakeTrigger((t) => t + 1);
     setEmotion("encouraging");
     setWrongCount((w) => w + 1);
+    setStreak(0);
     if (wrongCount + 1 >= 2) setTriggeredStuckHint(true);
     setTimeout(() => setEmotion("idle"), 600);
   };
@@ -372,49 +394,95 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
 
   const promptText = (() => {
     if (lesson.track === "multiplication")
-      return `What is ${currentProblem.a} × ${currentProblem.b}?`;
+      return `What is ${currentProblem.b} × ${currentProblem.a}?`;
     if (phase === "quiz")
       return `${currentProblem.a} ${lesson.track === "subtraction" ? "−" : "+"} ${currentProblem.b} = ?`;
-    if (lesson.track === "subtraction") return "How many are left?";
+    if (lesson.track === "subtraction") {
+      // Match the prompt to what the kid is looking at.
+      // Number line: frog hops backward — answer is where it lands.
+      // Tens-frame / double-tens-frame: items are crossed out — answer is what remains.
+      if (lesson.manipulative === "number-line") {
+        return "Where does the frog land?";
+      }
+      return "How many are left?";
+    }
     return "How many altogether?";
   })();
 
   return (
-    <LessonShell
-      left={
-        <div className="flex flex-col items-center gap-4">
-          <Mascot emotion={emotion} />
-          <div className="bg-white border-4 border-ink/80 rounded-2xl p-4 text-2xl font-bold text-center">
+    <>
+      {/* Back-to-home button — top-left, slightly out of the main play area. */}
+      <Link
+        href="/"
+        aria-label="Back to home"
+        className="absolute top-3 left-3 z-50 w-14 h-14 rounded-full bg-white border-4 border-ink/80 shadow-[0_3px_0_rgba(0,0,0,0.18)] flex items-center justify-center text-2xl active:scale-95 transition-transform"
+        data-testid="lesson-back-home"
+      >
+        🏠
+      </Link>
+      <LessonShell
+        top={
+          // The question banner — designed to be the first thing the kid sees
+          // when a problem appears. Re-animates on each new problem so it
+          // feels like a fresh prompt rather than static text.
+          <motion.div
+            key={`prompt-${currentProblem.id}`}
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="bg-white border-4 border-ink/80 rounded-3xl px-10 py-5 text-5xl font-black text-ink text-center tracking-tight shadow-[0_4px_0_rgba(0,0,0,0.12)] max-w-3xl"
+            data-testid="lesson-prompt"
+          >
             {promptText}
+          </motion.div>
+        }
+        left={
+          <div className="flex flex-col items-center">
+            <Mascot
+              emotion={emotion}
+              character={character}
+              variant={celebration}
+            />
           </div>
-        </div>
-      }
-      centre={
-        <div className="relative overflow-hidden w-full h-full flex items-center justify-center">
-          <GentleShake trigger={shakeTrigger}>
-            {renderManipulative(lesson.manipulative)}
-          </GentleShake>
-          <CorrectBurst show={showCorrect} />
-        </div>
-      }
-      right={
-        currentProblem.inputMode === "tap" ? (
-          <AnswerTiles
-            options={tileOptions}
-            onPick={submitTap}
-            disabled={showCorrect}
+        }
+        centre={
+          <div className="relative overflow-hidden w-full h-full flex items-center justify-center">
+            <GentleShake trigger={shakeTrigger}>
+              <motion.div
+                key={currentProblem.id}
+                initial={{ opacity: 0, scale: 0.92, y: 8 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{
+                  duration: 0.35,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+              >
+                {renderManipulative(lesson.manipulative)}
+              </motion.div>
+            </GentleShake>
+            <CorrectBurst show={showCorrect} />
+          </div>
+        }
+        right={
+          currentProblem.inputMode === "tap" ? (
+            <AnswerTiles
+              options={tileOptions}
+              seed={currentProblem.id}
+              onPick={submitTap}
+              disabled={showCorrect}
+            />
+          ) : (
+            <NumberPad onConfirm={submitType} disabled={showCorrect} />
+          )
+        }
+        bottom={
+          <ProgressBar
+            total={currentList.problems.length}
+            filled={problemIndex}
           />
-        ) : (
-          <NumberPad onConfirm={submitType} disabled={showCorrect} />
-        )
-      }
-      bottom={
-        <ProgressBar
-          total={currentList.problems.length}
-          filled={problemIndex}
-        />
-      }
-    />
+        }
+      />
+    </>
   );
 }
 

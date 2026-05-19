@@ -3,7 +3,7 @@ import "./globals.css";
 import { SwRegister } from "./sw-register";
 
 export const metadata: Metadata = {
-  title: "Riko's Math",
+  title: "Math Adventure",
   description: "A calm maths tutor for young children",
   manifest: "/manifest.webmanifest",
 };

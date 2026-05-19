@@ -30,7 +30,12 @@ export function NumberLine({
 }: Props) {
   const ticks = Array.from({ length: max + 1 }, (_, i) => i);
   const tickPercent = (i: number) => (i / max) * 100;
-  const labelClass = max <= 10 ? "text-xl" : "text-base";
+  // Pick a label interval so the scale doesn't get crowded.
+  const labelStep = max <= 10 ? 1 : max <= 20 ? 2 : max <= 50 ? 5 : 10;
+  const isLabelTick = (t: number) =>
+    t === 0 || t === max || t % labelStep === 0;
+  const labelClass =
+    max <= 10 ? "text-xl" : max <= 30 ? "text-lg" : "text-base";
 
   // Build hop arc segments
   const hopArcs: { from: number; to: number }[] = [];
@@ -91,18 +96,25 @@ export function NumberLine({
         {/* Number line rule */}
         <div className="absolute top-1/2 left-0 right-0 h-1 bg-ink/70 -translate-y-1/2" />
 
-        {/* Ticks and labels */}
-        {ticks.map((t) => (
-          <div
-            key={t}
-            data-testid="nl-tick"
-            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 flex flex-col items-center"
-            style={{ left: `${tickPercent(t)}%` }}
-          >
-            <div className="w-1 h-4 bg-ink/70" />
-            <div className={`${labelClass} mt-1`}>{t}</div>
-          </div>
-        ))}
+        {/* Ticks and labels — major ticks get labels, minor ticks are smaller and unlabelled */}
+        {ticks.map((t) => {
+          const major = isLabelTick(t);
+          return (
+            <div
+              key={t}
+              data-testid="nl-tick"
+              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 flex flex-col items-center"
+              style={{ left: `${tickPercent(t)}%` }}
+            >
+              <div
+                className={major ? "w-1 h-5 bg-ink/80" : "w-0.5 h-3 bg-ink/40"}
+              />
+              {major && (
+                <div className={`${labelClass} font-bold mt-1`}>{t}</div>
+              )}
+            </div>
+          );
+        })}
 
         {/* Frog */}
         <motion.div

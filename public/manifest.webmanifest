@@ -1,6 +1,6 @@
 {
-  "name": "Riko's Math",
-  "short_name": "Riko Math",
+  "name": "Math Adventure",
+  "short_name": "Math",
   "description": "A calm maths tutor for young children",
   "start_url": "/",
   "display": "fullscreen",
