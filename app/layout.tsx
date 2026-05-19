@@ -5,7 +5,8 @@ import { SwRegister } from "./sw-register";
 export const metadata: Metadata = {
   title: "Math Adventure",
   description: "A calm maths tutor for young children",
-  manifest: "/manifest.webmanifest",
+  // Prefix with NEXT_PUBLIC_BASE_PATH so GH Pages (/Maths1) and local both work.
+  manifest: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/manifest.webmanifest`,
 };
 
 export const viewport: Viewport = {

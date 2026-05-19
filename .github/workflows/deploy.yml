@@ -1,0 +1,61 @@
+# Builds the Next.js static export with the /Maths1 base path and publishes
+# it to GitHub Pages on every push to main.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Lets you run it manually from the Actions tab too.
+  workflow_dispatch:
+
+# Single concurrent deploy — cancel in-progress runs when a new commit lands.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install deps
+        run: bun install --frozen-lockfile
+
+      - name: Build static export
+        env:
+          # Tells next.config.ts to set basePath=/Maths1 and assetPrefix=/Maths1
+          # so every JS/CSS/image URL in the built HTML is correct for
+          # jegangn.github.io/Maths1/.
+          NEXT_PUBLIC_BASE_PATH: /Maths1
+        run: bun run build
+
+      - name: Disable Jekyll
+        # GH Pages otherwise hides files/folders starting with "_" (and Next.js
+        # ships everything under /_next/). A single empty .nojekyll file fixes it.
+        run: touch out/.nojekyll
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

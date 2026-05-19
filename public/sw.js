@@ -1,6 +1,13 @@
 // Cache version — bump this string to invalidate ALL old caches on next visit.
-const CACHE = "math-adventure-v3";
-const PRECACHE = ["/manifest.webmanifest", "/icon-192.png", "/icon-512.png"];
+const CACHE = "math-adventure-v4";
+// Compute the scope (e.g. "/" locally, "/Maths1/" on GH Pages) from the SW's
+// own URL so we don't have to hardcode the base path.
+const SCOPE = new URL("./", self.location).href;
+const PRECACHE = [
+  SCOPE + "manifest.webmanifest",
+  SCOPE + "icon-192.png",
+  SCOPE + "icon-512.png",
+];
 
 self.addEventListener("install", (event) => {
   // Activate the new SW immediately, don't wait for old tabs to close.
@@ -42,7 +49,7 @@ self.addEventListener("fetch", (event) => {
           caches.open(CACHE).then((c) => c.put(req, copy));
           return resp;
         })
-        .catch(() => caches.match(req).then((c) => c || caches.match("/"))),
+        .catch(() => caches.match(req).then((c) => c || caches.match(SCOPE))),
     );
     return;
   }

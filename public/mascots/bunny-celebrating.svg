@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  
+  <ellipse cx="75" cy="42" rx="9" ry="28" fill="#E8DCC4" stroke="#2D2A26" stroke-width="2.5" transform="rotate(-20 75 42)"></ellipse>
+  <ellipse cx="125" cy="42" rx="9" ry="28" fill="#E8DCC4" stroke="#2D2A26" stroke-width="2.5" transform="rotate(20 125 42)"></ellipse>
+  <ellipse cx="75" cy="46" rx="4" ry="20" fill="#F4B5B5" transform="rotate(-20 75 46)"></ellipse>
+  <ellipse cx="125" cy="46" rx="4" ry="20" fill="#F4B5B5" transform="rotate(20 125 46)"></ellipse>
+  
+  <ellipse cx="78" cy="180" rx="16" ry="8" fill="#E8DCC4" stroke="#2D2A26" stroke-width="2.5"></ellipse>
+  <ellipse cx="122" cy="180" rx="16" ry="8" fill="#E8DCC4" stroke="#2D2A26" stroke-width="2.5"></ellipse>
+  
+  <ellipse cx="100" cy="140" rx="48" ry="44" fill="#E8DCC4" stroke="#2D2A26" stroke-width="2.5"></ellipse>
+  
+  <ellipse cx="52" cy="108" rx="9" ry="12" fill="#E8DCC4" stroke="#2D2A26" stroke-width="2.5" transform="rotate(-30 52 108)"></ellipse>
+  <ellipse cx="148" cy="108" rx="9" ry="12" fill="#E8DCC4" stroke="#2D2A26" stroke-width="2.5" transform="rotate(30 148 108)"></ellipse>
+  
+  <ellipse cx="100" cy="152" rx="24" ry="20" fill="#FAF1E1"></ellipse>
+  
+  <circle cx="148" cy="148" r="9" fill="#FAF1E1" stroke="#2D2A26" stroke-width="2.5"></circle>
+  
+  <circle cx="100" cy="92" r="38" fill="#E8DCC4" stroke="#2D2A26" stroke-width="2.5"></circle>
+  
+  <ellipse cx="74" cy="103" rx="8" ry="4" fill="#F4B5B5"></ellipse>
+  <ellipse cx="126" cy="103" rx="8" ry="4" fill="#F4B5B5"></ellipse>
+  
+  <path d="M80 88 Q86 81 92 88" fill="none" stroke="#2D2A26" stroke-width="2.5" stroke-linecap="round"></path>
+  <path d="M108 88 Q114 81 120 88" fill="none" stroke="#2D2A26" stroke-width="2.5" stroke-linecap="round"></path>
+  
+  <path d="M96 101 L104 101 L100 106 Z" fill="#F4B5B5" stroke="#2D2A26" stroke-width="1.5" stroke-linejoin="round"></path>
+  
+  <path d="M88 108 L112 108 Q100 122 88 108 Z" fill="#E8836A" stroke="#2D2A26" stroke-width="2" stroke-linejoin="round"></path>
+  <rect x="96" y="108" width="8" height="6" rx="1" fill="#FAF1E1" stroke="#2D2A26" stroke-width="1.5"></rect>
+  <line x1="100" y1="108" x2="100" y2="114" stroke="#2D2A26" stroke-width="1"></line>
+</svg>

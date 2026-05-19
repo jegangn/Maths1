@@ -84,7 +84,7 @@ export function Mascot({
       >
         <img
           data-testid="mascot-img"
-          src={`/mascots/${character}-${face}.svg`}
+          src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mascots/${character}-${face}.svg`}
           alt={`${character} ${emotion}`}
           width={sizes[emotion]}
           height={sizes[emotion]}

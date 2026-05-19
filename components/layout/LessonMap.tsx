@@ -271,7 +271,7 @@ export function LessonMap() {
           }}
         >
           <motion.img
-            src="/mascots/cat-idle.svg"
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mascots/cat-idle.svg`}
             alt="You are here"
             className="block max-w-none drop-shadow-[0_8px_8px_rgba(0,0,0,0.22)]"
             style={{ width: MASCOT_W, height: MASCOT_H }}
