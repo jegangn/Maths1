@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { Mascot } from "@/components/mascot/Mascot";
+import { play } from "@/lib/sound";
 
 function DoneContent() {
   const params = useSearchParams();
@@ -13,6 +14,7 @@ function DoneContent() {
       <div className="text-6xl">{"⭐".repeat(stars)}</div>
       <Link
         href="/"
+        onClick={() => play("tap")}
         className="px-8 py-4 bg-yellow rounded-2xl border-4 border-ink/80 text-2xl font-bold"
       >
         Next →

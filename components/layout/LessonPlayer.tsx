@@ -150,10 +150,16 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
   };
 
   const onCorrect = () => {
-    play("correct");
-    setShowCorrect(true);
     const firstTry = wrongCount === 0;
     const nextStreak = firstTry ? streak + 1 : 1;
+    // Pitch-shift the chime higher as the streak builds, so the kid can hear
+    // they're on a roll without needing a separate streak sound asset:
+    //   streak 1-2: normal pitch
+    //   streak 3-4: +25% (perkier)
+    //   streak 5+:  +40% (bright triumphant ping)
+    const rate = nextStreak >= 5 ? 1.4 : nextStreak >= 3 ? 1.25 : 1;
+    play("correct", { rate });
+    setShowCorrect(true);
     setStreak(nextStreak);
     const picked = pickVariant(nextStreak);
     setCelebration(picked);
@@ -415,6 +421,7 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
       <Link
         href="/"
         aria-label="Back to home"
+        onClick={() => play("tap")}
         className="absolute top-3 left-3 z-50 w-14 h-14 rounded-full bg-white border-4 border-ink/80 shadow-[0_3px_0_rgba(0,0,0,0.18)] flex items-center justify-center text-2xl active:scale-95 transition-transform"
         data-testid="lesson-back-home"
       >

@@ -6,6 +6,7 @@ import { useAppStore } from "@/engine/store";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Track, Lesson } from "@/lib/types";
+import { play } from "@/lib/sound";
 
 type TrackMeta = {
   label: string;
@@ -106,6 +107,9 @@ export function LessonMap() {
     (lessonId: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
       e.preventDefault();
       if (navigationLock.current) return;
+      // Audible feedback for the lesson-pick — the first user gesture on the
+      // page, so this also unlocks the audio context for the rest of the run.
+      play("tap");
       // Already there → navigate immediately.
       if (lessonId === targetLessonId) {
         navigationLock.current = true;

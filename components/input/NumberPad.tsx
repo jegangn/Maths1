@@ -16,7 +16,14 @@ export function NumberPad({ onConfirm, disabled }: Props) {
   };
   const confirm = () => {
     if (disabled || !buf) return;
+    // Heavier "drop" sound so confirm feels meaningfully different from a
+    // digit press. The correct/wrong sound from the parent fires right after.
+    play("drop");
     onConfirm(parseInt(buf, 10));
+    setBuf("");
+  };
+  const clear = () => {
+    play("tap");
     setBuf("");
   };
   return (
@@ -37,7 +44,7 @@ export function NumberPad({ onConfirm, disabled }: Props) {
           </button>
         ))}
         <button
-          onClick={() => setBuf("")}
+          onClick={clear}
           className="py-4 text-lg bg-coral/30 rounded-xl border-2 border-ink/80"
         >
           Clear
